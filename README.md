@@ -1,6 +1,7 @@
 ## Ryujin Jakka - Front-end
 This is the front-end of the project *Ryujin Jakka* which is an web app made for Anime.
 
+### Configurations
 ### Create the React app *Ruyjin Jakka* by using,
 
 `yarn create react-app ryujin-jakka --template typescript`
@@ -29,10 +30,10 @@ module.exports = {}
 ```
 
 ### PostCSS
-- Install dependencies
+- Install dependencies.
 
     `yarn add -D stylelint@13.13.1 postcss-import@12.0.1 postcss-extend@1.0.5 postcss-nested@4.2.3 postcss-preset-env@6.7.0 postcss-reporter@6.0.1 precss@4.0.0`
-- Create *postcss.config.js* file
+- Create *postcss.config.js* file.
     
     ```
     module.exports = {
@@ -63,10 +64,10 @@ module.exports = {}
     ```
 
 ### Stylelint
-- Install dependencies
+- Install dependencies.
     
     `yarn add -D stylelint-config-css-modules stylelint-config-prettier stylelint-config-recess-order stylelint-config-standard stylelint-scss`
-- Create *stylelint.config.js* file
+- Create *stylelint.config.js* file.
 
     ```
     module.exports = {
@@ -130,17 +131,17 @@ module.exports = {}
     }
     ```
 ### Tailwind
-- Install the dependencies
+- Install the dependencies.
 
     `yarn add -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9`
 
     `yarn add -D @tailwindcss/forms`
 
-- Create a tailwind config file
+- Create a tailwind config file.
 
     `npx tailwindcss init -p`
 
-- Modify *tailwind.config.js*
+- Modify *tailwind.config.js*.
 
     ```
     const colors = require('tailwindcss/colors')
@@ -166,7 +167,7 @@ module.exports = {}
         plugins: [require('@tailwindcss/forms')],
     }
     ```
-- Update *src/index.css* to include Tailwind directives
+- Update *src/index.css* to include Tailwind directives.
     
     ```
     @tailwind base;
@@ -193,3 +194,88 @@ module.exports = {}
         vueIndentScriptAndStyle: false,
     };
     ```
+
+### Typescript
+- When scaffolding the project CRA automatically creates *tsconfig.json* file with some defaults and strict mode enabled.
+- Since we need to have unconfusing relative paths we can use *craco-alias* for that.
+
+    `yarn add craco-alias --dev`
+- Modify the *craco.config.js* file.
+
+    ```
+    const postcssConfig = require('./postcss.config')
+    const cracoAlias = require('craco-alias')
+    module.exports = {
+        style: {
+            postcss: postcssConfig,
+        },
+        plugins: [
+            {
+            plugin: cracoAlias,
+            options: {
+                source: 'tsconfig',
+                // baseUrl SHOULD be specified
+                // plugin does not take it from tsconfig
+                baseUrl: './',
+                /* tsConfigPath should point to the file where "baseUrl" and "paths" 
+                are specified*/
+                tsConfigPath: './tsconfig.paths.json',
+            },
+            },
+        ],
+    }
+    ```
+- We need to specify `source`, `baseUrl` and `tsConfigPath` properties. To do that we will create a *tsconfig.json* file.
+
+    ```
+    {
+        "compilerOptions": {
+            "paths": {
+            "@/*": ["src/*"]
+            }
+        }
+    }
+    ```
+- This setup will resolve imports starting with `@` sign to the `src` directory. If necessary, you can add more paths for resolving components, assets, etc.
+
+    ```
+    // ugly
+    import Component from '../../../components/common/MyComponent'
+
+    // nice
+    import Component from '@/components/common/MyComponent' 
+    ```
+- Update the *tsconfig.json* file.
+    
+    ```
+    {
+        "extends": "./tsconfig.paths.json",
+        "compilerOptions": {
+            "baseUrl": ".",
+            "target": "es5",
+            "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+            ],
+            "allowJs": true,
+            "skipLibCheck": true,
+            "esModuleInterop": true,
+            "allowSyntheticDefaultImports": true,
+            "strict": true,
+            "forceConsistentCasingInFileNames": true,
+            "noFallthroughCasesInSwitch": true,
+            "module": "esnext",
+            "moduleResolution": "node",
+            "resolveJsonModule": true,
+            "isolatedModules": true,
+            "noEmit": true,
+            "jsx": "react-jsx"
+        },
+        "include": [
+            "src"
+        ]
+    }
+    ```
+
+### Jest, Cypress, and Testing Library
