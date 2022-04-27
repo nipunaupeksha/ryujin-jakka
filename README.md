@@ -10,7 +10,7 @@
 - Two very popular ones are *Craco* and *react-app-rewired*.
 - We will be using the former one.
 - Run the following command to install craco. 
-    - `yarn add @craco/craco`
+    `yarn add @craco/craco`
 
 ### Update the *scripts* section in the *package.json* file.
 ```
@@ -28,10 +28,9 @@ module.exports = {}
 
 ### PostCSS
 - Install dependencies
-    - `yarn add -D stylelint@13.13.1 postcss-import@12.0.1 postcss-extend@1.0.5 postcss-nested@4.2.3 postcss-preset-env@6.7.0 postcss-reporter@6.0.1 precss@4.0.0`
+    `yarn add -D stylelint@13.13.1 postcss-import@12.0.1 postcss-extend@1.0.5 postcss-nested@4.2.3 postcss-preset-env@6.7.0 postcss-reporter@6.0.1 precss@4.0.0`
 - Create *postcss.config.js* file
     
-    - 
     ```
     module.exports = {
         plugins: [
@@ -51,7 +50,6 @@ module.exports = {}
     ```
 - Update *craco.config.js* to make use of the PostCSS config
    
-    - 
     ```
     const postcssConfig = require('./postcss.config')
     module.exports = {
@@ -66,7 +64,6 @@ module.exports = {}
      - `yarn add -D stylelint-config-css-modules stylelint-config-prettier stylelint-config-recess-order stylelint-config-standard stylelint-scss`
 - Create *stylelint.config.js* file
 
-    - 
     ```
     module.exports = {
         extends: [
