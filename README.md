@@ -28,6 +28,7 @@ module.exports = {}
 
 ### PostCSS
 - Install dependencies
+
     `yarn add -D stylelint@13.13.1 postcss-import@12.0.1 postcss-extend@1.0.5 postcss-nested@4.2.3 postcss-preset-env@6.7.0 postcss-reporter@6.0.1 precss@4.0.0`
 - Create *postcss.config.js* file
     
@@ -61,7 +62,8 @@ module.exports = {}
 
 ### Stylelint
 - Install dependencies
-     - `yarn add -D stylelint-config-css-modules stylelint-config-prettier stylelint-config-recess-order stylelint-config-standard stylelint-scss`
+    
+    `yarn add -D stylelint-config-css-modules stylelint-config-prettier stylelint-config-recess-order stylelint-config-standard stylelint-scss`
 - Create *stylelint.config.js* file
 
     ```
