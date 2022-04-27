@@ -1,3 +1,5 @@
+## Ryujin Jakka - Front-end
+This is the front-end of the project *Ryujin Jakka* which is an web app made for Anime.
 
 ### Create the React app *Ruyjin Jakka* by using,
 
@@ -128,3 +130,66 @@ module.exports = {}
     }
     ```
 ### Tailwind
+- Install the dependencies
+
+    `yarn add -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9`
+
+    `yarn add -D @tailwindcss/forms`
+
+- Create a tailwind config file
+
+    `npx tailwindcss init -p`
+
+- Modify *tailwind.config.js*
+
+    ```
+    const colors = require('tailwindcss/colors')
+
+    module.exports = {
+        purge: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+        mode: 'jit',
+        darkMode: false, // or 'media' or 'class'
+        theme: {
+            extend: {
+            fontFamily: {
+                heading: ['Montserrat', 'sans-serif'],
+                content: ['Nunito', 'sans-serif'],
+            },
+            },
+            colors: {
+            ...colors,
+            },
+        },
+        variants: {
+            extend: {},
+        },
+        plugins: [require('@tailwindcss/forms')],
+    }
+    ```
+- Update *src/index.css* to include Tailwind directives
+    
+    ```
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    ```
+
+### Prettier
+- Configure the prettier according to your preferences.
+
+    ```
+    module.exports = {
+        endOfLine: 'lf',
+        jsxBracketSameLine: false,
+        printWidth: 80,
+        proseWrap: 'never',
+        quoteProps: 'as-needed',
+        semi: false,
+        singleQuote: true,
+        jsxSingleQuote: false,
+        tabWidth: 2,
+        trailingComma: 'es5',
+        useTabs: false,
+        vueIndentScriptAndStyle: false,
+    };
+    ```
