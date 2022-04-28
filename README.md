@@ -3,8 +3,39 @@ This is the front-end of the project *Ryujin Jakka* which is an web app made for
 
 ### Configurations
 ### Create the React app *Ruyjin Jakka* by using,
+- Create the React app using the latest version.
 
-`yarn create react-app ryujin-jakka --template typescript`
+    `yarn create react-app ryujin-jakka --template typescript`
+- Delete *node_modules* folder and *yarn.lock*.
+- Replace the *package.json* with the following.
+
+    ```
+    {
+        "name": "ryujin-jakka",
+        "version": "0.1.0",
+        "private": true,
+        "scripts": {
+            "dev": "vite",
+            "build": "tsc && vite build",
+            "serve": "vite preview"
+        },
+        "dependencies": {
+            "axios": "^0.21.1",
+            "react": "^17.0.0",
+            "react-dom": "^17.0.0",
+            "web-vitals":"^1.0.1"
+        },
+        "devDependencies": {
+            "@types/react": "^17.0.0",
+            "@types/react-dom": "^17.0.0",
+            "@vitejs/plugin-react-refresh": "^1.3.1",
+            "typescript": "^4.3.2",
+            "vite": "^2.3.7"
+        }
+    }
+    ```
+- Install the dependencies with `yarn install`.
+- Here, vite can be seen in the scripts. Vite is a modern build tool that provides a blazing fast development experience and can be used instead of CRA. But here, we will be using CRA and use the above .json file only to scaffold our project.
 
 ### Add Craco
 
@@ -13,7 +44,7 @@ This is the front-end of the project *Ryujin Jakka* which is an web app made for
 - Two very popular ones are *Craco* and *react-app-rewired*.
 - We will be using the former one.
 - Run the following command to install craco. 
-    `yarn add @craco/craco`
+    `yarn add @craco/craco@^6.2.0`
 
 ### Update the *scripts* section in the *package.json* file.
 ```
@@ -32,7 +63,7 @@ module.exports = {}
 ### PostCSS
 - Install dependencies.
 
-    `yarn add -D stylelint@13.13.1 postcss-import@12.0.1 postcss-extend@1.0.5 postcss-nested@4.2.3 postcss-preset-env@6.7.0 postcss-reporter@6.0.1 precss@4.0.0`
+    `yarn add stylelint@13.13.1 postcss@^7.0.36 postcss-import@12.0.1 postcss-extend@1.0.5 postcss-nested@4.2.3 postcss-preset-env@6.7.0 postcss-reporter@6.0.1 precss@4.0.0 --dev`
 - Create *postcss.config.js* file.
     
     ```
@@ -66,7 +97,7 @@ module.exports = {}
 ### Stylelint
 - Install dependencies.
     
-    `yarn add -D stylelint-config-css-modules stylelint-config-prettier stylelint-config-recess-order stylelint-config-standard stylelint-scss`
+    `yarn add stylelint-config-css-modules@^2.2.0 stylelint-config-prettier@^8.0.2 stylelint-config-recess-order@^2.4.0 stylelint-config-recommended@^5.0.0 stylelint-config-standard@^22.0.0 stylelint-scss@^3.19.0 --dev`
 - Create *stylelint.config.js* file.
 
     ```
@@ -133,9 +164,9 @@ module.exports = {}
 ### Tailwind
 - Install the dependencies.
 
-    `yarn add -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9`
+    `yarn add tailwindcss@npm:@tailwindcss/postcss7-compat@^2.2.4 autoprefixer@^9.8.6 --dev`
 
-    `yarn add -D @tailwindcss/forms`
+    `yarn add @tailwindcss/forms@^0.3.3`
 
 - Create a tailwind config file.
 
@@ -176,6 +207,9 @@ module.exports = {}
     ```
 
 ### Prettier
+- Install prettier.
+
+    `yarn add prettier@^2.3.2 --dev`
 - Configure the prettier according to your preferences.
 
     ```
@@ -196,10 +230,13 @@ module.exports = {}
     ```
 
 ### Typescript
+- Install typesript
+
+    `yarn add typescript@^4.3.2 --dev`
 - When scaffolding the project CRA automatically creates *tsconfig.json* file with some defaults and strict mode enabled.
 - Since we need to have unconfusing relative paths we can use *craco-alias* for that.
 
-    `yarn add craco-alias --dev`
+    `yarn add craco-alias@^3.0.1 --dev`
 - Modify the *craco.config.js* file.
 
     ```
@@ -279,3 +316,147 @@ module.exports = {}
     ```
 
 ### Jest, Cypress, and Testing Library
+- Install cypress.
+
+    `yarn add cypress@^8.2.0 @testing-library/cypress@^7.0.6 --dev`
+
+- Add scripts to *package.json*.
+
+    ```
+    "scripts": {
+        "start": "craco start",
+        "build": "craco build",
+        "test:unit": "craco test",
+        "test:e2e:open": "start-server-and-test start http-get://localhost:3000 cypress:open",
+        "test:e2e:run": "start-server-and-test start http-get://localhost:3000 cypress:run",
+        "cypress:run": "cypress run",
+        "cypress:open": "cypress open"
+    }
+    ```
+- When you run Cypress for the first time, it would automatically create a new directory called *cypress* at the root of the project. To run first time type `yarn run cypress:open` in terminal.
+- It contains,
+    - fixtures
+    - integration
+    - plugins
+    - support
+- We can remove all the example tests from *cypress/integration* folder, since we won't need them.
+- Update the `.js` files to `.ts`.
+- *cypress/plugins/index.ts*
+
+    ```
+    /// <reference types="cypress" />
+    /* eslint-disable import/no-anonymous-default-export */
+    /**
+    * @type {Cypress.PluginConfig}
+    */
+    export default (
+    on: Cypress.PluginEvents,
+    config: Cypress.PluginConfigOptions
+    ) => {
+    return Object.assign({}, config, {
+        fixturesFolder: 'cypress/fixtures',
+        integrationFolder: 'cypress/integration',
+        screenshotsFolder: 'cypress/screenshots',
+        videosFolder: 'cypress/videos',
+        supportFile: 'cypress/support/index.ts',
+    })
+    }
+    ```
+- *cypress/support/commands.ts*
+
+    ```
+    // ***********************************************
+    // This example commands.js shows you how to
+    // create various custom commands and overwrite
+    // existing commands.
+    //
+    // For more comprehensive examples of custom
+    // commands please read more here:
+    // https://on.cypress.io/custom-commands
+    // ***********************************************
+    //
+    //
+    // -- This is a parent command --
+    // Cypress.Commands.add("login", (email, password) => { ... })
+    //
+    //
+    // -- This is a child command --
+    // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
+    //
+    //
+    // -- This is a dual command --
+    // Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
+    //
+    //
+    // -- This is will overwrite an existing command --
+    // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+    import '@testing-library/cypress/add-commands'
+    ```
+- *cypress/support/index.ts*
+
+    ```
+    // ***********************************************************
+    // This example support/index.js is processed and
+    // loaded automatically before your test files.
+    //
+    // This is a great place to put global configuration and
+    // behavior that modifies Cypress.
+    //
+    // You can change the location of this file or turn off
+    // automatically serving support files with the
+    // 'supportFile' configuration option.
+    //
+    // You can read more here:
+    // https://on.cypress.io/configuration
+    // ***********************************************************
+
+    // Import commands.js using ES2015 syntax:
+    import './commands'
+
+    // Alternatively you can use CommonJS syntax:
+    // require('./commands')
+    ```
+- After that create a *cypress.json*.
+
+    ```
+    {
+        "baseUrl": "http://localhost:3000",
+        "pluginsFile": "cypress/plugins/index.ts"
+    }
+    ```
+- Add the following to the *.gitignore* file.
+
+    ```
+    /cypress/videos
+    /cypress/screenshots
+    ```
+- Create a *cypress/tsconfig.json*.
+
+    ```
+    {
+        "extends": "../tsconfig.json",
+        "compilerOptions": {
+            "noEmit": true,
+            "types": ["cypress", "@testing-library/cypress"],
+            "isolatedModules": false
+        },
+        "include": [
+            "../node_modules/cypress",
+            "../node_modules/@testing-library/cypress",
+            "./**/*.ts"
+        ]
+    }
+    ```
+- Install Jest & Testing libraries
+
+    `yarn add @testing-library/react@^11.1.0 @testing-library/jest-dom@^5.11.4 @testing-library/react-hooks@^7.0.1 @testing-library/user-event@^12.1.10 --dev`
+
+### Formatting Code Automatically on Commit
+- Since we have already installed the prettier, we will install husky and lint-staged.
+
+    `yarn add husky@^7.0.1 lint-staged@^11.1.2 --dev`
+
+## Remove unwanted dependencies
+- Remove @vitejs/plugin-react-refresh by
+
+    `yarn remove @vitejs/plugin-react-refresh`
