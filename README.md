@@ -498,7 +498,7 @@ module.exports = {}
     }
     ```
 
-## Remove unwanted dependencies
+### Remove unwanted dependencies
 - Remove @vitejs/plugin-react-refresh by
 
     `yarn remove @vitejs/plugin-react-refresh`
@@ -506,3 +506,39 @@ module.exports = {}
 ## Alternative Options for CRA
 - The best option for CRA is to use Vite. You can find more details about it at,
 vitejs.dev
+
+## VS Code Extensions
+The following VS Code extenstions can be used to improve code maintainance and consistency.
+- ES7 React/Redux/GraphQL/React-Native snippets
+- VSCode React Refactor
+- Prettier
+- ESLint
+- Stylelint
+- GitLens
+- Git history
+- Settings Sync
+- Bracket Pair Colorizer 2
+- Auto Close Tag
+- Auto Rename
+- Auto Import
+- Import Cost
+- Jumpy
+- ES6 Snippets
+- i18n Ally
+- Formatting toggle
+- npm intellisense
+- Web Accessibility
+- Live Share
+- Better comments
+- Markdownlint
+- Docker
+- Remote - SSH
+- Remot - WSL
+- Live Server
+- Debugger for Chrome
+- change0case
+- Regex Previewer
+- DotENV
+- Inline Parameters for VSCode
+
+If you are not using CRA, ESlint and Stylelint rules may have conflicts with Prettier. To avoid that, you can use, eslint-config-prettier and stylelint-config-prettier.
