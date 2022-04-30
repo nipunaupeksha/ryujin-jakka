@@ -19,6 +19,34 @@
         "react-dom": "^17.0.0",
         "web-vitals": "^1.0.1"
     },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{ts,tsx}": "eslint",
+        "*.{css,scss}": "stylelint",
+        "**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier -w -u"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
     "devDependencies": {
         "@testing-library/cypress": "^7.0.6",
         "@testing-library/jest-dom": "^5.11.4",

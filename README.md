@@ -451,12 +451,58 @@ module.exports = {}
 
     `yarn add @testing-library/react@^11.1.0 @testing-library/jest-dom@^5.11.4 @testing-library/react-hooks@^7.0.1 @testing-library/user-event@^12.1.10 --dev`
 
+- Change *src.setupTests.ts*
+
+    `import @testing-library/jest-dom`
+
 ### Formatting Code Automatically on Commit
 - Since we have already installed the prettier, we will install husky and lint-staged.
 
     `yarn add husky@^7.0.1 lint-staged@^11.1.2 --dev`
 
+- Update the *package.json*
+
+    ```
+    "husky": {
+        "hooks": {
+        "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{ts,tsx}": "eslint",
+        "*.{css,scss}": "stylelint",
+        "**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier -w -u"
+    }
+    ```
+
+- And add the following default configs as well.
+
+    ```
+    "eslintConfig": {
+        "extends": [
+        "react-app",
+        "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+        ],
+        "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+        ]
+    }
+    ```
+
 ## Remove unwanted dependencies
 - Remove @vitejs/plugin-react-refresh by
 
     `yarn remove @vitejs/plugin-react-refresh`
+
+## Alternative Options for CRA
+- The best option for CRA is to use Vite. You can find more details about it at,
+vitejs.dev
